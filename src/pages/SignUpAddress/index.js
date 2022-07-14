@@ -31,9 +31,9 @@ const AddressPage = ({navigation}) => {
         navigation.replace('SignUpSuccess');
       })
       .catch(err => {
-        // console.log('Sign Up Error:', err.response.data.message);
+        console.log('Sign Up Error:', err.response);
         dispatch({type: 'SET_LOADING', value: false});
-        showToast(err?.response?.data?.message);
+        showToast('Error');
       });
   };
   const showToast = (message, type) => {
