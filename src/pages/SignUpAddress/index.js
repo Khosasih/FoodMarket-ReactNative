@@ -2,11 +2,12 @@ import Axios from 'axios';
 import {ScrollView, StyleSheet, Text, View} from 'react-native';
 import React from 'react';
 import {Button, Gap, Header, Select, TextInput} from '../../components';
-import {useForm} from '../../utils';
+import {useForm, showMessage} from '../../utils';
 import {useDispatch, useSelector} from 'react-redux';
-import {showMessage, hideMessage} from 'react-native-flash-message';
+import {useState} from 'react';
 
 const AddressPage = ({navigation}) => {
+  // const [errorPhone, seterrorPhone] = useState(''); //bikin state untuk error per Form
   const [form, setFrom] = useForm({
     phoneNumber: '',
     address: '',
@@ -14,7 +15,7 @@ const AddressPage = ({navigation}) => {
     city: 'Jakarta',
   });
   const dispatch = useDispatch();
-  const registerReducer = useSelector(state => state.registerReducer);
+  const {registerReducer, photoReducer} = useSelector(state => state);
   const onSubmit = () => {
     console.log('form:', form);
     const data = {
@@ -26,22 +27,43 @@ const AddressPage = ({navigation}) => {
     Axios.post('http://192.168.0.140:8000/api/register', data)
       .then(res => {
         console.log('Data Success:', res.data);
+        if (photoReducer.isUpload) {
+          const photoForUpload = new FormData();
+          photoForUpload.append('file', photoReducer);
+          console.log('photoForUpload :', photoReducer);
+          Axios.post(
+            'http://192.168.0.140:8000/api/user/photo',
+            photoForUpload,
+            {
+              headers: {
+                Accept: 'application/json',
+                Authorization: `${res.data.data.token_type} ${res.data.data.access_token}`,
+                'Content-Type': `multipart/form-data`,
+                // accept: 'application/json',
+              },
+            },
+          )
+            .then(resUpload => {
+              console.log('succes upload: ', resUpload);
+            })
+            .catch(error => {
+              console.log('error upload: ', error.response);
+              showMessage('Upload foto tidak berhasil');
+            });
+        }
         dispatch({type: 'SET_LOADING', value: false});
-        showToast('Registrasi Berhasil', 'success');
+        showMessage('Registrasi Berhasil', 'succes');
         navigation.replace('SignUpSuccess');
       })
       .catch(err => {
         console.log('Sign Up Error:', err.response);
         dispatch({type: 'SET_LOADING', value: false});
-        showToast('Error');
+        let errors = Object.values(err?.response?.data?.message);
+        console.log('error :', errors);
+        let textError = errors.join('\n\n');
+        showMessage(textError);
+        // seterrorPhone(err.response.data.message.phoneNumber[0]); /ambil setnya dari console error
       });
-  };
-  const showToast = (message, type) => {
-    showMessage({
-      message,
-      type: type === 'succes' ? 'success' : 'danger',
-      backgroundColor: type === 'success' ? '#1ABC9C' : '#D9435E',
-    });
   };
   return (
     <ScrollView
@@ -59,6 +81,7 @@ const AddressPage = ({navigation}) => {
             placeholder={'0838*****'}
             value={form.phoneNumber}
             onChangeText={value => setFrom('phoneNumber', value)}
+            // error={errorPhone} tinggal panggil
           />
           <Gap height={16} />
           <TextInput
