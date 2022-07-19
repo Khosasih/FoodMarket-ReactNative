@@ -1,10 +1,9 @@
-import Axios from 'axios';
-import {ScrollView, StyleSheet, Text, View} from 'react-native';
 import React from 'react';
-import {Button, Gap, Header, Select, TextInput} from '../../components';
-import {useForm, showMessage} from '../../utils';
-import {useDispatch, useSelector} from 'react-redux';
-import {useState} from 'react';
+import { ScrollView, StyleSheet, View } from 'react-native';
+import { useDispatch, useSelector } from 'react-redux';
+import { Button, Gap, Header, Select, TextInput } from '../../components';
+import { setLoading, signUpAction } from '../../redux/action';
+import { useForm } from '../../utils';
 
 const AddressPage = ({navigation}) => {
   // const [errorPhone, seterrorPhone] = useState(''); //bikin state untuk error per Form
@@ -23,47 +22,8 @@ const AddressPage = ({navigation}) => {
       ...registerReducer,
     };
     console.log('Data Register:', data);
-    dispatch({type: 'SET_LOADING', value: true});
-    Axios.post('http://192.168.0.140:8000/api/register', data)
-      .then(res => {
-        console.log('Data Success:', res.data);
-        if (photoReducer.isUpload) {
-          const photoForUpload = new FormData();
-          photoForUpload.append('file', photoReducer);
-          console.log('photoForUpload :', photoReducer);
-          Axios.post(
-            'http://192.168.0.140:8000/api/user/photo',
-            photoForUpload,
-            {
-              headers: {
-                Accept: 'application/json',
-                Authorization: `${res.data.data.token_type} ${res.data.data.access_token}`,
-                'Content-Type': `multipart/form-data`,
-                // accept: 'application/json',
-              },
-            },
-          )
-            .then(resUpload => {
-              console.log('succes upload: ', resUpload);
-            })
-            .catch(error => {
-              console.log('error upload: ', error.response);
-              showMessage('Upload foto tidak berhasil');
-            });
-        }
-        dispatch({type: 'SET_LOADING', value: false});
-        showMessage('Registrasi Berhasil', 'succes');
-        navigation.replace('SignUpSuccess');
-      })
-      .catch(err => {
-        console.log('Sign Up Error:', err.response);
-        dispatch({type: 'SET_LOADING', value: false});
-        let errors = Object.values(err?.response?.data?.message);
-        console.log('error :', errors);
-        let textError = errors.join('\n\n');
-        showMessage(textError);
-        // seterrorPhone(err.response.data.message.phoneNumber[0]); /ambil setnya dari console error
-      });
+    dispatch(setLoading(true));
+    dispatch(signUpAction(data, photoReducer, navigation));
   };
   return (
     <ScrollView
