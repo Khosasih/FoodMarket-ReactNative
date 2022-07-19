@@ -6,11 +6,11 @@ import {
 } from 'react-native';
 import React from 'react';
 
-const TextInput = ({label,placeholder,error,...restProps}) => {
+const TextInput = ({label,placeholder,error,keyboardType,maxLength,...restProps}) => {
   return (
     <View>
       <Text style={styles.label}>{label}</Text>
-      <TextInputEmail style={styles.input} placeholder={placeholder} {...restProps} />
+      <TextInputEmail style={styles.input} placeholder={placeholder} {...restProps} keyboardType={keyboardType} maxLength={maxLength}/>
       {error ? <Text>{error}</Text> : null} 
       {/* ini logic untuk panggil errornya*/}
     </View>

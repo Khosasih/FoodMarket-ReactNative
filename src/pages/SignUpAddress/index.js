@@ -1,14 +1,14 @@
 import React from 'react';
-import { ScrollView, StyleSheet, View } from 'react-native';
-import { useDispatch, useSelector } from 'react-redux';
-import { Button, Gap, Header, Select, TextInput } from '../../components';
-import { setLoading, signUpAction } from '../../redux/action';
-import { useForm } from '../../utils';
+import {ScrollView, StyleSheet, View} from 'react-native';
+import {useDispatch, useSelector} from 'react-redux';
+import {Button, Gap, Header, Select, TextInput} from '../../components';
+import {setLoading, signUpAction} from '../../redux/action';
+import {useForm} from '../../utils';
 
 const AddressPage = ({navigation}) => {
   // const [errorPhone, seterrorPhone] = useState(''); //bikin state untuk error per Form
   const [form, setFrom] = useForm({
-    phoneNumber: '',
+    phoneNumber: '+62',
     address: '',
     houseNumber: '',
     city: 'Jakarta',
@@ -39,6 +39,8 @@ const AddressPage = ({navigation}) => {
           <TextInput
             label={'Nomor Telepon'}
             placeholder={'0838*****'}
+            keyboardType={'numeric'}
+            maxLength={13}
             value={form.phoneNumber}
             onChangeText={value => setFrom('phoneNumber', value)}
             // error={errorPhone} tinggal panggil
