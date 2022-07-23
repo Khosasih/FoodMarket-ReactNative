@@ -1,24 +1,17 @@
 import React from 'react';
-import {Image, ScrollView, StyleSheet, Text, View} from 'react-native';
+import { ScrollView, StyleSheet, View } from 'react-native';
 import {
   FoodDummy1,
   FoodDummy2,
   FoodDummy3,
-  FoodDummy4,
-  ProfileDummy,
+  FoodDummy4
 } from '../../assets';
-import {FoodCard, Gap, HomeTab} from '../../components';
+import { FoodCard, Gap, HomeProfile, HomeTab } from '../../components';
 
 const Home = () => {
-  return (  
+  return (
     <View style={styles.page}>
-      <View style={styles.profileContainer}>
-        <View>
-          <Text style={styles.catering}>Catering UMI</Text>
-          <Text style={styles.subCatering}>Yuk Order Sekarang!</Text>
-        </View>
-        <Image source={ProfileDummy} style={styles.profile} />
-      </View>
+      <HomeProfile />
       <View>
         <ScrollView horizontal showsHorizontalScrollIndicator={false}>
           <View style={styles.FoodCardContainer}>

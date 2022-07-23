@@ -1,15 +1,30 @@
-import React from 'react';
-import { Image, StyleSheet, Text, View } from 'react-native';
-import { ProfileDummy } from '../../../assets';
+import React, {useState, useEffect} from 'react';
+import {Image, StyleSheet, Text, View} from 'react-native';
+import {ProfileDummy} from '../../../assets';
+import {getData} from '../../../utils';
 
 const HomeProfile = () => {
+  const [photo, setPhoto] = useState(ProfileDummy);
+  //cara jika mau get nama
+  // const [name, setName] = useState('Catering Umi');
+  useEffect(() => {
+    getData('userProfile').then(res => {
+      console.log('user Profile: ', res);
+      setPhoto({uri: res.profile_photo_url});
+      //tambahkan ini untuk get nama
+      // setName(res.name);
+    });
+  }, []);
   return (
     <View style={styles.profileContainer}>
       <View>
+        {/* dan ini tambahkan */}
+        {/* <Text style={styles.catering}>{name}</Text> */}
         <Text style={styles.catering}>Catering UMI</Text>
+
         <Text style={styles.subCatering}>Yuk Order Sekarang!</Text>
       </View>
-      <Image source={ProfileDummy} style={styles.profile} />
+      <Image source={photo} style={styles.profile} />
     </View>
   );
 };
