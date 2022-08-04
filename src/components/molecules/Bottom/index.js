@@ -1,24 +1,30 @@
 import React from 'react';
-import {StyleSheet, View, TouchableOpacity} from 'react-native';
-import {IconHomeOff, IconHomeOn, IconOrderOff, IconOrderOn, IconProfileOff, IconProfileOn} from '../../../assets';
+import {StyleSheet, View, TouchableOpacity, Dimensions} from 'react-native';
+import {
+  IconHomeOff,
+  IconHomeOn,
+  IconOrderOff,
+  IconOrderOn,
+  IconProfileOff,
+  IconProfileOn,
+} from '../../../assets';
 
 const Icon = ({label, focus}) => {
-  switch(label){
+  switch (label) {
     case 'Home':
-      return focus ? <IconHomeOn/> : <IconHomeOff/>
+      return focus ? <IconHomeOn /> : <IconHomeOff />;
     case 'Order':
-      return focus ? <IconOrderOn/> : <IconOrderOff/>
+      return focus ? <IconOrderOn /> : <IconOrderOff />;
     case 'Profile':
-      return focus ? <IconProfileOn/> : <IconProfileOff/>
-      default:
-        return <IconOrderOn/>
+      return focus ? <IconProfileOn /> : <IconProfileOff />;
+    default:
+      return <IconOrderOn />;
   }
-}
+};
 
 const BottomNavigator = ({state, descriptors, navigation}) => {
   return (
-    <View
-      style={styles.container}>
+    <View style={styles.container} >
       {state.routes.map((route, index) => {
         const {options} = descriptors[route.key];
         const label =
@@ -72,10 +78,19 @@ export default BottomNavigator;
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
-    backgroundColor: 'white',
+    backgroundColor: '#FF4500',
     paddingTop: 15,
     paddingBottom: 13,
     paddingHorizontal: 50,
-    justifyContent: 'space-between'
-  }
+    justifyContent: 'space-between',
+    marginHorizontal: 20,
+    bottom: 20,
+    borderRadius: 20,
+    shadowColor: '#020202',
+    shadowOpacity: 0.07,
+    shadowOffset: {
+      height: 10,
+      width: 10,
+    },
+  },
 });

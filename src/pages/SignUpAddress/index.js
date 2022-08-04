@@ -33,7 +33,7 @@ const AddressPage = ({navigation}) => {
         <Header
           title={'Alamat'}
           subTitle={'Masukan Alamat Tinggal Anda'}
-          iconBack={() => {}}
+          iconBack={() => navigation.goBack()}
         />
         <View style={styles.container}>
           <TextInput

@@ -17,8 +17,6 @@ export const signUpAction =
         storeData('token', {
           value: token,
         });
-        //menyimpan data user
-        storeData( 'userProfile', profile);
         if (photoReducer.isUpload) {
           const photoForUpload = new FormData();
           photoForUpload.append('file', photoReducer);
@@ -32,16 +30,24 @@ export const signUpAction =
             },
           })
             .then(resUpload => {
+              profile.profile_photo_url = `http://192.168.0.140:8000/storage/${resUpload.data.data[0]}`;
+              //menyimpan data user
+              storeData('userProfile', profile);
+              navigation.reset({index: 0, routes: [{name: 'SignUpSuccess'}]});
               console.log('succes upload: ', resUpload);
             })
             .catch(error => {
               console.log('error upload: ', error.response);
               showMessage('Upload foto tidak berhasil');
+              navigation.reset({index: 0, routes: [{name: 'SignUpSuccess'}]});
             });
-        }
+        } else {
+          //menyimpan data user
+          storeData('userProfile', profile);
+          navigation.reset({index: 0, routes: [{name: 'SignUpSuccess'}]});
+        } 
         dispatch(setLoading(false));
         showMessage('Registrasi Berhasil', 'succes');
-        navigation.replace('SignUpSuccess');
       })
       .catch(err => {
         console.log('Sign Up Error:', err.response);
@@ -53,3 +59,24 @@ export const signUpAction =
         // seterrorPhone(err.response.data.message.phoneNumber[0]); /ambil setnya dari console error
       });
   };
+export const signInAction = (form,navigation) => dispatch => {
+  Axios.post(`${API_HOST.url}/login`, form)
+      .then(res => {
+        dispatch(setLoading(true))
+        const token = `${res.data.data.token_type} ${res.data.data.access_token}`;
+        const profile = res.data.data.user;
+        dispatch(setLoading(false))
+        storeData('token', {
+          value: token,
+        });
+        storeData('userProfile', profile);
+        navigation.reset({index: 0, routes:[{name : 'MainApp'}]})
+        console.log('success', res);
+        // return navigation.navigate('Home');
+      })
+      .catch(err => {
+        dispatch(setLoading(false))
+        showMessage(err?.response?.data?.data?.message)
+        console.log('error', err);
+      });
+}

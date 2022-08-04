@@ -73,7 +73,7 @@ const SignUp = ({navigation}) => {
         <Header
           title={'SignUp'}
           subTitle={'Daftar Sekarang'}
-          iconBack={() => {}}
+          iconBack={() => navigation.goBack()}
         />
         <View style={styles.container}>
           <View style={styles.photoStyle}>

@@ -1,7 +1,9 @@
 import Axios from 'axios';
 import React, {useState} from 'react';
 import {StyleSheet, View} from 'react-native';
+import {useDispatch, useSelector} from 'react-redux';
 import {Button, Gap, Header, TextInput} from '../../components';
+import {setLoading, signInAction} from '../../redux/action';
 import {useForm} from '../../utils';
 
 const SignIn = ({navigation}) => {
@@ -12,26 +14,22 @@ const SignIn = ({navigation}) => {
     password: '',
   });
 
+  const dispatch = useDispatch();
+
   const onSubmit = () => {
+    dispatch(setLoading(true));
+    dispatch(signInAction(form, navigation));
     // 'karna sudah pakai form/Hook maka menjadi..'
     // console.log('email: ', email);
     // console.log('password: ', password);
     console.log('form: ', form);
-   Axios.post('http://192.168.0.140:8000/api/login', form)
-      .then(res => {
-        console.log('success', res);
-        // return navigation.navigate('Home');
-      })
-      .catch(err => {
-        console.log('error', err);
-      });
   };
   return (
     <View style={styles.page}>
       <Header title="Masuk" subTitle="Langsung Order, Gak Pake Repott!" />
       <View style={styles.container}>
         <TextInput
-          label="Email Addres"
+          label="Email Address"
           placeholder="Masukan Email Anda"
           // value={email} 'karna sudah pakai form/Hook maka menjadi..'
           value={form.email}

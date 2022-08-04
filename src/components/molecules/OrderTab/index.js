@@ -11,7 +11,7 @@ const OrderTab = () => {
     <TabBar
       {...props}
       indicatorStyle={{
-        backgroundColor: '#020202',
+        backgroundColor: '#FF4500',
         height: 3,
         width: 0.5,
         marginLeft: 0.3,
@@ -28,7 +28,7 @@ const OrderTab = () => {
         <Text
           style={{
             fontFamily: 'Poppins-Medium',
-            color: focused ? '#020202' : '#8D92A3',
+            color: focused ? '#FF4500' : '#8D92A3',
           }}>
           {route.title}
         </Text>

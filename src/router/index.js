@@ -17,12 +17,15 @@ import {
 
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {BottomNavigator} from '../components';
+import { View } from 'react-native';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 const MainApp = () => {
   return (
-    <Tab.Navigator tabBar={props => <BottomNavigator {...props} />}>
+    <Tab.Navigator tabBar={props => (<View style={{ backgroundColor: 'transparent', position: 'absolute', left: 65, bottom: 0, right: 65 }}>
+    <BottomNavigator {...props} />
+  </View>)}>
       <Tab.Screen name="Home" component={Home} options={{headerShown: false}} />
       <Tab.Screen
         name="Order"

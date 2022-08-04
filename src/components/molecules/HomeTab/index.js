@@ -5,15 +5,16 @@ import useWindowDimensions from 'react-native/Libraries/Utilities/useWindowDimen
 import {FoodDummy1, FoodDummy2, FoodDummy3, FoodDummy4} from '../../../assets';
 import FoodList from '../FoodList';
 import {useNavigation} from '@react-navigation/native';
+import { Gap } from '../../atoms';
 
 const HomeTab = () => {
   const renderTabBar = props => (
     <TabBar
       {...props}
       indicatorStyle={{
-        backgroundColor: '#020202',
+        backgroundColor: '#FF4500',
         height: 3,
-        width: 0.5,
+        width: 0.6,
         marginLeft: 0.3,
       }}
       style={{
@@ -28,7 +29,7 @@ const HomeTab = () => {
         <Text
           style={{
             fontFamily: 'Poppins-Medium',
-            color: focused ? '#020202' : '#8D92A3',
+            color: focused ? '#FF4500' : '#8D92A3',
           }}>
           {route.title}
         </Text>
@@ -78,6 +79,7 @@ const HomeTab = () => {
             paddingVertical={5}
           />
         </View>
+        <Gap height={80}/>
       </ScrollView>
     );
   };
@@ -124,6 +126,7 @@ const HomeTab = () => {
             paddingVertical={5}
           />
         </View>
+        <Gap height={80}/>
       </ScrollView>
     );
   };
@@ -170,6 +173,7 @@ const HomeTab = () => {
             paddingVertical={5}
           />
         </View>
+        <Gap height={80}/>
       </ScrollView>
     );
   };
