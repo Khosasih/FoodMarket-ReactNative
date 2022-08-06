@@ -1,11 +1,12 @@
 import React from 'react';
-import {ScrollView, StyleSheet, Text, View} from 'react-native';
+import {AsyncStorage, ScrollView, StyleSheet, Text, View} from 'react-native';
 import {SceneMap, TabBar, TabView} from 'react-native-tab-view';
 import useWindowDimensions from 'react-native/Libraries/Utilities/useWindowDimensions';
 import {FoodDummy1, FoodDummy2, FoodDummy3, FoodDummy4} from '../../../assets';
 import FoodList from '../FoodList';
 import {useNavigation} from '@react-navigation/native';
 import ItemListMenu from '../ItemListMenu';
+import { showMessage } from '../../../utils';
 
 const ProfileTab = () => {
   const renderTabBar = props => (
@@ -39,13 +40,20 @@ const ProfileTab = () => {
 
   const Account = () => {
     const navigation = useNavigation();
+    const signOut = () => {
+      AsyncStorage.multiRemove(['userProfile', 'token']).then(() =>
+        navigation.reset({index: 0, routes: [{name: 'SignIn'}]}),
+        showMessage('Berhasil LogOut!', 'succes')
+      );
+    };
     return (
       <ScrollView showsVerticalScrollIndicator={false}>
         <View style={styles.newTasteContainer}>
-          <ItemListMenu text={'Edit Profile'}/>
-          <ItemListMenu text={'Home Address'}/>
-          <ItemListMenu text={'Security'}/>
-          <ItemListMenu text={'Payment'}/>
+          <ItemListMenu text={'Edit Profile'} />
+          <ItemListMenu text={'Home Address'} />
+          <ItemListMenu text={'Security'} />
+          <ItemListMenu text={'Payment'} />
+          <ItemListMenu text={'SignOut'} onPress={signOut}/>
         </View>
       </ScrollView>
     );
@@ -56,10 +64,10 @@ const ProfileTab = () => {
     return (
       <ScrollView showsVerticalScrollIndicator={false}>
         <View style={styles.newTasteContainer}>
-          <ItemListMenu  text={'Rate App'}/>
-          <ItemListMenu text={'Help Center'}/>
-          <ItemListMenu text={'Privacy & Policy'}/>
-          <ItemListMenu text={'Terms & Conditions'}/>
+          <ItemListMenu text={'Rate App'} />
+          <ItemListMenu text={'Help Center'} />
+          <ItemListMenu text={'Privacy & Policy'} />
+          <ItemListMenu text={'Terms & Conditions'} />
         </View>
       </ScrollView>
     );

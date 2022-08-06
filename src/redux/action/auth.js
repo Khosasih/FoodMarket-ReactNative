@@ -71,12 +71,15 @@ export const signInAction = (form,navigation) => dispatch => {
         });
         storeData('userProfile', profile);
         navigation.reset({index: 0, routes:[{name : 'MainApp'}]})
+        showMessage('Berhasil LogIn!', 'succes')
         console.log('success', res);
         // return navigation.navigate('Home');
       })
       .catch(err => {
         dispatch(setLoading(false))
-        showMessage(err?.response?.data?.data?.message)
-        console.log('error', err);
+        console.log('error:', err)
+        let errors = Object.values(err?.response?.data?.message);
+        let ErrorText = errors.join('\n\n')
+        showMessage(ErrorText);
       });
 }

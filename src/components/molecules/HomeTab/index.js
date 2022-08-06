@@ -40,7 +40,7 @@ const HomeTab = () => {
   const NewTaste = () => {
     const navigation = useNavigation();
     return (
-      <ScrollView showsVerticalScrollIndicator={false}>
+      <ScrollView nestedScrollEnabled={true} showsVerticalScrollIndicator={false}>
         <View style={styles.newTasteContainer}>
           <FoodList
             rating={4.5}
@@ -78,6 +78,51 @@ const HomeTab = () => {
             onPress={() => navigation.navigate('FoodDetail')}
             paddingVertical={5}
           />
+          <FoodList
+            rating={4.5}
+            image={FoodDummy1}
+            title="Bakso Kering"
+            price="20.000"
+            type="product"
+            onPress={() => navigation.navigate('FoodDetail')}
+            paddingVertical={5}
+          />
+          <FoodList
+            rating={4.5}
+            image={FoodDummy1}
+            title="Bakso Kering"
+            price="20.000"
+            type="product"
+            onPress={() => navigation.navigate('FoodDetail')}
+            paddingVertical={5}
+          />
+          <FoodList
+            rating={4.5}
+            image={FoodDummy1}
+            title="Bakso Kering"
+            price="20.000"
+            type="product"
+            onPress={() => navigation.navigate('FoodDetail')}
+            paddingVertical={5}
+          />
+          <FoodList
+            rating={4.5}
+            image={FoodDummy1}
+            title="Bakso Kering"
+            price="20.000"
+            type="product"
+            onPress={() => navigation.navigate('FoodDetail')}
+            paddingVertical={5}
+          />
+          <FoodList
+            rating={4.5}
+            image={FoodDummy1}
+            title="Bakso Kering"
+            price="20.000"
+            type="product"
+            onPress={() => navigation.navigate('FoodDetail')}
+            paddingVertical={5}
+          />
         </View>
         <Gap height={80}/>
       </ScrollView>
@@ -87,7 +132,7 @@ const HomeTab = () => {
   const Popular = () => {
     const navigation = useNavigation();
     return (
-      <ScrollView showsVerticalScrollIndicator={false}>
+      <ScrollView nestedScrollEnabled={true} showsVerticalScrollIndicator={false}>
         <View style={styles.newTasteContainer}>
           <FoodList
             rating={4.5}
@@ -125,6 +170,42 @@ const HomeTab = () => {
             onPress={() => navigation.navigate('FoodDetail')}
             paddingVertical={5}
           />
+          <FoodList
+            rating={4.5}
+            image={FoodDummy1}
+            title="Nasi Goreng Mang Ali"
+            price="75.000"
+            type="product"
+            onPress={() => navigation.navigate('FoodDetail')}
+            paddingVertical={5}
+          />
+          <FoodList
+            rating={4.5}
+            image={FoodDummy3}
+            title="Bakso Selamet"
+            price="50.000"
+            type="product"
+            onPress={() => navigation.navigate('FoodDetail')}
+            paddingVertical={5}
+          />
+          <FoodList
+            rating={4.5}
+            image={FoodDummy1}
+            title="Nasi Goreng Mang Ali"
+            price="75.000"
+            type="product"
+            onPress={() => navigation.navigate('FoodDetail')}
+            paddingVertical={5}
+          />
+          <FoodList
+            rating={4.5}
+            image={FoodDummy3}
+            title="Bakso Selamet"
+            price="50.000"
+            type="product"
+            onPress={() => navigation.navigate('FoodDetail')}
+            paddingVertical={5}
+          />
         </View>
         <Gap height={80}/>
       </ScrollView>
@@ -134,13 +215,40 @@ const HomeTab = () => {
   const Recommended = () => {
     const navigation = useNavigation();
     return (
-      <ScrollView showsVerticalScrollIndicator={false}>
+      <ScrollView nestedScrollEnabled={true} showsVerticalScrollIndicator={false}>
         <View style={styles.newTasteContainer}>
           <FoodList
             rating={4.5}
             image={FoodDummy4}
             title="Nasi Kuning"
             price="75.000"
+            type="product"
+            onPress={() => navigation.navigate('FoodDetail')}
+            paddingVertical={5}
+          />
+          <FoodList
+            rating={4.5}
+            image={FoodDummy2}
+            title="Nasi Goreng"
+            price="50.000"
+            type="product"
+            onPress={() => navigation.navigate('FoodDetail')}
+            paddingVertical={5}
+          />
+          <FoodList
+            rating={4.5}
+            image={FoodDummy1}
+            title="Mie Rebus"
+            price="15.000"
+            type="product"
+            onPress={() => navigation.navigate('FoodDetail')}
+            paddingVertical={5}
+          />
+          <FoodList
+            rating={4.5}
+            image={FoodDummy3}
+            title="Nasi Uduk"
+            price="20.000"
             type="product"
             onPress={() => navigation.navigate('FoodDetail')}
             paddingVertical={5}

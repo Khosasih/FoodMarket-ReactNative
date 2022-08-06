@@ -1,32 +1,35 @@
 import React from 'react';
-import { ScrollView, StyleSheet, View } from 'react-native';
-import {
-  FoodDummy1,
-  FoodDummy2,
-  FoodDummy3,
-  FoodDummy4
-} from '../../assets';
-import { FoodCard, Gap, HomeProfile, HomeTab } from '../../components';
+import {ScrollView, StyleSheet, useWindowDimensions, View} from 'react-native';
+import {FoodDummy1, FoodDummy2, FoodDummy3, FoodDummy4} from '../../assets';
+import {FoodCard, Gap, HomeProfile, HomeTab} from '../../components';
 
 const Home = () => {
+  const layout = useWindowDimensions();
   return (
-    <View style={styles.page}>
-      <HomeProfile />
-      <View>
-        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-          <View style={styles.FoodCardContainer}>
-            <Gap width={24} />
-            <FoodCard image={FoodDummy1} title={'Nasi Kuning'} />
-            <FoodCard image={FoodDummy2} title={'Nasi Goreng'} />
-            <FoodCard image={FoodDummy3} title={'Soto Mie'} />
-            <FoodCard image={FoodDummy4} title={'Nasi Putih'} />
-          </View>
-        </ScrollView>
+    <ScrollView
+      contentContainerStyle={{
+        height: layout.height * 1.4
+        //ditambah * 1.4 kalau untuk scroll full
+      }}
+      showsVerticalScrollIndicator={false}>
+      <View style={styles.page}>
+        <HomeProfile />
+        <View>
+          <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+            <View style={styles.FoodCardContainer}>
+              <Gap width={24} />
+              <FoodCard image={FoodDummy1} title={'Nasi Kuning'} />
+              <FoodCard image={FoodDummy2} title={'Nasi Goreng'} />
+              <FoodCard image={FoodDummy3} title={'Soto Mie'} />
+              <FoodCard image={FoodDummy4} title={'Nasi Putih'} />
+            </View>
+          </ScrollView>
+        </View>
+        <View style={styles.tabContainer}>
+          <HomeTab />
+        </View>
       </View>
-      <View style={styles.tabContainer}>
-        <HomeTab />
-      </View>
-    </View>
+    </ScrollView>
   );
 };
 

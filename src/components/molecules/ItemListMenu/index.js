@@ -1,13 +1,15 @@
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import React from 'react';
 import {IconMove} from '../../../assets';
 
-const ItemListMenu = ({text}) => {
+const ItemListMenu = ({text, onPress}) => {
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>{text}</Text>
-      <IconMove />
-    </View>
+    <TouchableOpacity onPress={onPress}>
+      <View style={styles.container}>
+        <Text style={styles.title}>{text}</Text>
+        <IconMove />
+      </View>
+    </TouchableOpacity>
   );
 };
 
@@ -23,6 +25,6 @@ const styles = StyleSheet.create({
   title: {
     fontFamily: 'Poppins-Regular',
     fontSize: 14,
-    color: '#020202',   
+    color: '#020202',
   },
 });
