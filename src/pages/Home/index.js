@@ -1,14 +1,23 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {ScrollView, StyleSheet, useWindowDimensions, View} from 'react-native';
+import {useDispatch, useSelector} from 'react-redux';
 import {FoodDummy1, FoodDummy2, FoodDummy3, FoodDummy4} from '../../assets';
 import {FoodCard, Gap, HomeProfile, HomeTab} from '../../components';
+import {getFoodData} from '../../redux/action';
 
 const Home = () => {
+  const dispatch = useDispatch();
+  const {food} = useSelector(state => state.homeReducer);
+
+  useEffect(() => {
+    dispatch(getFoodData());
+  });
+
   const layout = useWindowDimensions();
   return (
     <ScrollView
       contentContainerStyle={{
-        height: layout.height * 1.4
+        height: layout.height * 1.4,
         //ditambah * 1.4 kalau untuk scroll full
       }}
       showsVerticalScrollIndicator={false}>
@@ -18,10 +27,19 @@ const Home = () => {
           <ScrollView horizontal showsHorizontalScrollIndicator={false}>
             <View style={styles.FoodCardContainer}>
               <Gap width={24} />
-              <FoodCard image={FoodDummy1} title={'Nasi Kuning'} />
+              {food.map(itemFood => {
+                return (
+                  <FoodCard
+                    name={itemFood.name}
+                    image={{uri: itemFood.picturePath}}
+                    rating={itemFood.rate}
+                  />
+                );
+              })}
+              {/* <FoodCard image={FoodDummy1} title={'Nasi Kuning'} />
               <FoodCard image={FoodDummy2} title={'Nasi Goreng'} />
               <FoodCard image={FoodDummy3} title={'Soto Mie'} />
-              <FoodCard image={FoodDummy4} title={'Nasi Putih'} />
+              <FoodCard image={FoodDummy4} title={'Nasi Putih'} /> */}
             </View>
           </ScrollView>
         </View>

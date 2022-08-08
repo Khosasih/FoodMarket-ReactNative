@@ -1,10 +1,7 @@
 import Axios from 'axios';
+import { API_HOST } from '../../config';
 import {showMessage, storeData} from '../../utils';
 import {setLoading} from './global';
-
-const API_HOST = {
-  url: 'http://192.168.0.140:8000/api',
-};
 
 export const signUpAction =
   (dataRegister, photoReducer, navigation) => dispatch => {
@@ -79,7 +76,8 @@ export const signInAction = (form,navigation) => dispatch => {
         dispatch(setLoading(false))
         console.log('error:', err)
         let errors = Object.values(err?.response?.data?.message);
-        let ErrorText = errors.join('\n\n')
-        showMessage(ErrorText);
+        console.log('error :', errors);
+        let textError = errors.join('\n\n');
+        showMessage(textError);
       });
 }
