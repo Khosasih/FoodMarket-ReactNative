@@ -40,7 +40,7 @@ const HomeTab = () => {
   const NewTaste = () => {
     const navigation = useNavigation();
     return (
-      <ScrollView nestedScrollEnabled={true} showsVerticalScrollIndicator={false}>
+      <ScrollView key={index} nestedScrollEnabled={true} showsVerticalScrollIndicator={false}>
         <View style={styles.newTasteContainer}>
           <FoodList
             rating={4.5}
@@ -132,7 +132,7 @@ const HomeTab = () => {
   const Popular = () => {
     const navigation = useNavigation();
     return (
-      <ScrollView nestedScrollEnabled={true} showsVerticalScrollIndicator={false}>
+      <ScrollView key={index} nestedScrollEnabled={true} showsVerticalScrollIndicator={false}>
         <View style={styles.newTasteContainer}>
           <FoodList
             rating={4.5}
@@ -215,7 +215,7 @@ const HomeTab = () => {
   const Recommended = () => {
     const navigation = useNavigation();
     return (
-      <ScrollView nestedScrollEnabled={true} showsVerticalScrollIndicator={false}>
+      <ScrollView key={index} nestedScrollEnabled={true} showsVerticalScrollIndicator={false}>
         <View style={styles.newTasteContainer}>
           <FoodList
             rating={4.5}
