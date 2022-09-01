@@ -30,7 +30,10 @@ const Home = () => {
               {food.map(itemFood => {
                 return (
                   <FoodCard
+                    key={itemFood.id}
                     name={itemFood.name}
+                    // kalo database image path tidak ada url maka tambahkan ini
+                    // image={{uri:'http://192.168.0.140:8000/storage/'+itemFood.picturePath}} key={itemFood}
                     image={{uri: itemFood.picturePath}}
                     rating={itemFood.rate}
                   />

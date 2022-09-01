@@ -23,11 +23,11 @@ export const signUpAction =
               // Accept: 'application/json',
               Authorization: token,
               'Content-Type': `multipart/form-data`,
-              // accept: 'application/json',
             },
           })
             .then(resUpload => {
-              profile.profile_photo_url = `http://192.168.0.140:8000/storage/${resUpload.data.data[0]}`;
+              // profile.profile_photo_url = `http://192.168.0.140:8000/storage/${resUpload.data.data[0]}`;
+              profile.profile_photo_url = `${API_HOST.baseUrl}/storage/${resUpload.data.data[0]}`;
               //menyimpan data user
               storeData('userProfile', profile);
               navigation.reset({index: 0, routes: [{name: 'SignUpSuccess'}]});

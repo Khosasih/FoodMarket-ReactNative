@@ -3,10 +3,10 @@ import { Image, StyleSheet, Text, View } from 'react-native';
 import { Gap } from '../../atoms';
 import Rating from '../Rating';
 
-const FoodCard = ({image, title,name, rating}) => {
+const FoodCard = ({image,name, rating}) => {
   return (
     <View style={styles.container}>
-      <Image source={image} style={styles.image} />
+      <Image source={image} style={styles.images} />
       <View style={styles.content}>
         <Text style={styles.title}>{name}</Text>
         <Gap height={5} />
@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
     marginRight: 24,
   },
-  image: {
+  images: {
     width: 200,
     height: 140,
     resizeMode: 'cover',

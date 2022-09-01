@@ -1,5 +1,6 @@
 import React from 'react';
 import {Image, StyleSheet, Text, View, TouchableOpacity} from 'react-native';
+import Number from '../Number';
 import Rating from '../Rating';
 
 const FoodList = ({
@@ -27,9 +28,10 @@ const FoodList = ({
               <Image style={styles.imageContainer} source={image} />
               <View style={styles.textContainer}>
                 <Text style={styles.textTitle}>{title}</Text>
-                <Text style={styles.textSubtitle}> IDR {price}</Text>
+                <Number number={price}/>
+                {/* <Text style={styles.textSubtitle}> IDR {price}</Text> */}
               </View>
-              <Rating rating={rating} />
+              <Rating number={rating} />
             </View>
           </>
         );

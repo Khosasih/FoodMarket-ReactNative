@@ -1,11 +1,13 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {ScrollView, StyleSheet, Text, View} from 'react-native';
 import {SceneMap, TabBar, TabView} from 'react-native-tab-view';
 import useWindowDimensions from 'react-native/Libraries/Utilities/useWindowDimensions';
 import {FoodDummy1, FoodDummy2, FoodDummy3, FoodDummy4} from '../../../assets';
 import FoodList from '../FoodList';
 import {useNavigation} from '@react-navigation/native';
-import { Gap } from '../../atoms';
+import {Gap} from '../../atoms';
+import {useDispatch, useSelector} from 'react-redux';
+import {getFoodDataByTypes} from '../../../redux/action';
 
 const HomeTab = () => {
   const renderTabBar = props => (
@@ -39,249 +41,99 @@ const HomeTab = () => {
 
   const NewTaste = () => {
     const navigation = useNavigation();
+    const dispatch = useDispatch();
+    const {newTaste} = useSelector(state => state.homeReducer);
+    useEffect(() => {
+      dispatch(getFoodDataByTypes('new_food'));
+    }, []);
     return (
-      <ScrollView key={index} nestedScrollEnabled={true} showsVerticalScrollIndicator={false}>
+      <ScrollView
+        key={index}
+        nestedScrollEnabled={true}
+        showsVerticalScrollIndicator={false}>
         <View style={styles.newTasteContainer}>
-          <FoodList
-            rating={4.5}
-            image={FoodDummy4}
-            title="Bihun Goreng"
-            price="75.000"
-            onPress={() => navigation.navigate('FoodDetail')}
-            paddingVertical={5}
-            type="product"
-          />
-          <FoodList
-            rating={4.5}
-            image={FoodDummy3}
-            title="Nasi Gurih"
-            price="50.000"
-            type="product"
-            onPress={() => navigation.navigate('FoodDetail')}
-            paddingVertical={5}
-          />
-          <FoodList
-            rating={4.5}
-            image={FoodDummy2}
-            title="Mie Sedap"
-            price="15.000"
-            type="product"
-            onPress={() => navigation.navigate('FoodDetail')}
-            paddingVertical={5}
-          />
-          <FoodList
-            rating={4.5}
-            image={FoodDummy1}
-            title="Bakso Kering"
-            price="20.000"
-            type="product"
-            onPress={() => navigation.navigate('FoodDetail')}
-            paddingVertical={5}
-          />
-          <FoodList
-            rating={4.5}
-            image={FoodDummy1}
-            title="Bakso Kering"
-            price="20.000"
-            type="product"
-            onPress={() => navigation.navigate('FoodDetail')}
-            paddingVertical={5}
-          />
-          <FoodList
-            rating={4.5}
-            image={FoodDummy1}
-            title="Bakso Kering"
-            price="20.000"
-            type="product"
-            onPress={() => navigation.navigate('FoodDetail')}
-            paddingVertical={5}
-          />
-          <FoodList
-            rating={4.5}
-            image={FoodDummy1}
-            title="Bakso Kering"
-            price="20.000"
-            type="product"
-            onPress={() => navigation.navigate('FoodDetail')}
-            paddingVertical={5}
-          />
-          <FoodList
-            rating={4.5}
-            image={FoodDummy1}
-            title="Bakso Kering"
-            price="20.000"
-            type="product"
-            onPress={() => navigation.navigate('FoodDetail')}
-            paddingVertical={5}
-          />
-          <FoodList
-            rating={4.5}
-            image={FoodDummy1}
-            title="Bakso Kering"
-            price="20.000"
-            type="product"
-            onPress={() => navigation.navigate('FoodDetail')}
-            paddingVertical={5}
-          />
+          {newTaste.map(item => {
+            return (
+              <FoodList
+                key={item.id}
+                rating={item.rate}
+                image={{uri: item.picturePath}}
+                title={item.name}
+                price={item.price}
+                onPress={() => navigation.navigate('FoodDetail')}
+                paddingVertical={5}
+                type="product"
+              />
+            );
+          })}
         </View>
-        <Gap height={80}/>
+        <Gap height={80} />
       </ScrollView>
     );
   };
 
   const Popular = () => {
     const navigation = useNavigation();
+    const dispatch = useDispatch();
+    const {popular} = useSelector(state => state.homeReducer);
+    useEffect(() => {
+      dispatch(getFoodDataByTypes('popular'));
+    }, []);
     return (
-      <ScrollView key={index} nestedScrollEnabled={true} showsVerticalScrollIndicator={false}>
+      <ScrollView
+        key={index}
+        nestedScrollEnabled={true}
+        showsVerticalScrollIndicator={false}>
         <View style={styles.newTasteContainer}>
-          <FoodList
-            rating={4.5}
-            image={FoodDummy1}
-            title="Nasi Goreng Mang Ali"
-            price="75.000"
-            type="product"
-            onPress={() => navigation.navigate('FoodDetail')}
-            paddingVertical={5}
-          />
-          <FoodList
-            rating={4.5}
-            image={FoodDummy3}
-            title="Bakso Selamet"
-            price="50.000"
-            type="product"
-            onPress={() => navigation.navigate('FoodDetail')}
-            paddingVertical={5}
-          />
-          <FoodList
-            rating={4.5}
-            image={FoodDummy2}
-            title="Nasi Goreng Spesial"
-            price="15.000"
-            type="product"
-            onPress={() => navigation.navigate('FoodDetail')}
-            paddingVertical={5}
-          />
-          <FoodList
-            rating={4.5}
-            image={FoodDummy4}
-            title="Bakso Setiabudi"
-            price="20.000"
-            type="product"
-            onPress={() => navigation.navigate('FoodDetail')}
-            paddingVertical={5}
-          />
-          <FoodList
-            rating={4.5}
-            image={FoodDummy1}
-            title="Nasi Goreng Mang Ali"
-            price="75.000"
-            type="product"
-            onPress={() => navigation.navigate('FoodDetail')}
-            paddingVertical={5}
-          />
-          <FoodList
-            rating={4.5}
-            image={FoodDummy3}
-            title="Bakso Selamet"
-            price="50.000"
-            type="product"
-            onPress={() => navigation.navigate('FoodDetail')}
-            paddingVertical={5}
-          />
-          <FoodList
-            rating={4.5}
-            image={FoodDummy1}
-            title="Nasi Goreng Mang Ali"
-            price="75.000"
-            type="product"
-            onPress={() => navigation.navigate('FoodDetail')}
-            paddingVertical={5}
-          />
-          <FoodList
-            rating={4.5}
-            image={FoodDummy3}
-            title="Bakso Selamet"
-            price="50.000"
-            type="product"
-            onPress={() => navigation.navigate('FoodDetail')}
-            paddingVertical={5}
-          />
+          {popular.map(item => {
+            return (
+              <FoodList
+                key={item.id}
+                rating={item.rate}
+                image={{uri: item.picturePath}}
+                title={item.name}
+                price={item.price}
+                type="product"
+                onPress={() => navigation.navigate('FoodDetail')}
+                paddingVertical={5}
+              />
+            );
+          })}
         </View>
-        <Gap height={80}/>
+        <Gap height={80} />
       </ScrollView>
     );
   };
 
   const Recommended = () => {
+    const dispatch = useDispatch();
     const navigation = useNavigation();
+    const {recommended} = useSelector(state => state.homeReducer);
+    useEffect(()=>{
+      dispatch(getFoodDataByTypes('recommended'))
+    }, [])
     return (
-      <ScrollView key={index} nestedScrollEnabled={true} showsVerticalScrollIndicator={false}>
+      <ScrollView
+        key={index}
+        nestedScrollEnabled={true}
+        showsVerticalScrollIndicator={false}>
         <View style={styles.newTasteContainer}>
-          <FoodList
-            rating={4.5}
-            image={FoodDummy4}
-            title="Nasi Kuning"
-            price="75.000"
-            type="product"
-            onPress={() => navigation.navigate('FoodDetail')}
-            paddingVertical={5}
-          />
-          <FoodList
-            rating={4.5}
-            image={FoodDummy2}
-            title="Nasi Goreng"
-            price="50.000"
-            type="product"
-            onPress={() => navigation.navigate('FoodDetail')}
-            paddingVertical={5}
-          />
-          <FoodList
-            rating={4.5}
-            image={FoodDummy1}
-            title="Mie Rebus"
-            price="15.000"
-            type="product"
-            onPress={() => navigation.navigate('FoodDetail')}
-            paddingVertical={5}
-          />
-          <FoodList
-            rating={4.5}
-            image={FoodDummy3}
-            title="Nasi Uduk"
-            price="20.000"
-            type="product"
-            onPress={() => navigation.navigate('FoodDetail')}
-            paddingVertical={5}
-          />
-          <FoodList
-            rating={4.5}
-            image={FoodDummy2}
-            title="Nasi Goreng"
-            price="50.000"
-            type="product"
-            onPress={() => navigation.navigate('FoodDetail')}
-            paddingVertical={5}
-          />
-          <FoodList
-            rating={4.5}
-            image={FoodDummy1}
-            title="Mie Rebus"
-            price="15.000"
-            type="product"
-            onPress={() => navigation.navigate('FoodDetail')}
-            paddingVertical={5}
-          />
-          <FoodList
-            rating={4.5}
-            image={FoodDummy3}
-            title="Nasi Uduk"
-            price="20.000"
-            type="product"
-            onPress={() => navigation.navigate('FoodDetail')}
-            paddingVertical={5}
-          />
+          {recommended.map(item => {
+            return (
+              <FoodList
+                key={item.id}
+                rating={item.rate}
+                image={{uri: item.picturePath}}
+                title={item.name}
+                price={item.price}
+                type="product"
+                onPress={() => navigation.navigate('FoodDetail')}
+                paddingVertical={5}
+              />
+            );
+          })}
         </View>
-        <Gap height={80}/>
+        <Gap height={80} />
       </ScrollView>
     );
   };

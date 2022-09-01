@@ -1,15 +1,16 @@
 import {StyleSheet, Text, View} from 'react-native';
 import React from 'react';
 import {IconStarOff, IconStarOn} from '../../../assets';
+import Number from '../Number';
 
 const Rating = ({number}) => {
   const renderStar = () => {
     let rating = [];
     for (let i=1 ; i<=5 ; i++) {
       if (i <= number) {
-        rating.push(<IconStarOn />);
+        rating.push(<IconStarOn key={i} />);
       } else {
-        rating.push(<IconStarOff />);
+        rating.push(<IconStarOff key={i}/>);
       }
     }
     return rating;
@@ -24,7 +25,8 @@ const Rating = ({number}) => {
         <IconStarOn />
         <IconStarOff /> */}
       </View>
-      <Text>{number}</Text>
+      <Number number={number} type='decimal'/>
+      {/* <Text>{number}</Text> */}
     </View>
   );
 };
