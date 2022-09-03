@@ -60,7 +60,7 @@ const HomeTab = () => {
                 image={{uri: item.picturePath}}
                 title={item.name}
                 price={item.price}
-                onPress={() => navigation.navigate('FoodDetail')}
+                onPress={() => navigation.navigate('FoodDetail', item)}
                 paddingVertical={5}
                 type="product"
               />
@@ -94,7 +94,7 @@ const HomeTab = () => {
                 title={item.name}
                 price={item.price}
                 type="product"
-                onPress={() => navigation.navigate('FoodDetail')}
+                onPress={() => navigation.navigate('FoodDetail', item)}
                 paddingVertical={5}
               />
             );
@@ -127,7 +127,7 @@ const HomeTab = () => {
                 title={item.name}
                 price={item.price}
                 type="product"
-                onPress={() => navigation.navigate('FoodDetail')}
+                onPress={() => navigation.navigate('FoodDetail', item)}
                 paddingVertical={5}
               />
             );

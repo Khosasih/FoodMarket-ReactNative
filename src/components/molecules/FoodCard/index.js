@@ -1,19 +1,21 @@
 import React from 'react';
-import { Image, StyleSheet, Text, View } from 'react-native';
-import { Gap } from '../../atoms';
+import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {Gap} from '../../atoms';
 import Rating from '../Rating';
 
-const FoodCard = ({image,name, rating}) => {
+const FoodCard = ({image, name, rating, onPress}) => {
   return (
-    <View style={styles.container}>
-      <Image source={image} style={styles.images} />
-      <View style={styles.content}>
-        <Text style={styles.title}>{name}</Text>
-        <Gap height={5} />
-        <Rating number={rating}/>
-        {/* <Rating/> */}
+    <TouchableOpacity onPress={onPress} activeOpacity={0.8}>
+      <View style={styles.container}>
+        <Image source={image} style={styles.images} />
+        <View style={styles.content}>
+          <Text style={styles.title}>{name}</Text>
+          <Gap height={5} />
+          <Rating number={rating} />
+          {/* <Rating/> */}
+        </View>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 

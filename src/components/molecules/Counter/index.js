@@ -1,15 +1,34 @@
 import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {IconMin, IconPlus} from '../../../assets';
 
-const Counter = () => {
+const Counter = ({onValueChange}) => {
+  const [value, setValue] = useState(1);
+
+  useEffect(() => {
+    onValueChange(value);
+  }, []);
+
+  let result = value;
+  const onCount = type => {
+    if (type === 'plus') {
+      result = value + 1;
+    }
+    if (type === 'minus') {
+      if (value > 1) {
+        result = value - 1;
+      }
+    }
+    setValue(result);
+    onValueChange(result);
+  };
   return (
     <View style={styles.Container}>
-      <TouchableOpacity>
+      <TouchableOpacity onPress={() => onCount('minus')}>
         <IconMin />
       </TouchableOpacity>
-      <Text style={styles.counter}>17</Text>
-      <TouchableOpacity>
+      <Text style={styles.counter}>{value}</Text>
+      <TouchableOpacity onPress={() => onCount('plus')}>
         <IconPlus />
       </TouchableOpacity>
     </View>
@@ -29,8 +48,8 @@ const styles = StyleSheet.create({
     color: '#020202',
     marginHorizontal: 10,
   },
-  containerCounter:{
-      height: 26,
-      width: 26
-  }
+  containerCounter: {
+    height: 26,
+    width: 26,
+  },
 });

@@ -28,7 +28,7 @@ const FoodList = ({
               <Image style={styles.imageContainer} source={image} />
               <View style={styles.textContainer}>
                 <Text style={styles.textTitle}>{title}</Text>
-                <Number number={price}/>
+                <Number number={price} style={styles.textSubtitle}/>
                 {/* <Text style={styles.textSubtitle}> IDR {price}</Text> */}
               </View>
               <Rating number={rating} />
@@ -42,7 +42,7 @@ const FoodList = ({
               <Image style={styles.imageContainer} source={image} />
               <View style={styles.textContainer}>
                 <Text style={styles.textTitle}>{title}</Text>
-                <Text style={styles.textSubtitle}> IDR {price}</Text>
+                <Number number={price} style={styles.textSubtitle}/>
               </View>
               <Text style={styles.items}>{items} items</Text>
             </View>
@@ -55,6 +55,7 @@ const FoodList = ({
               <Image style={styles.imageContainer} source={image} />
               <View style={styles.textContainer}>
                 <Text style={styles.textTitle}>{title}</Text>
+                <Number number={price} style={styles.textSubtitle}/>
                 <Text style={styles.textSubtitle}>
                   {items} items . IDR {price}
                 </Text>
@@ -69,6 +70,7 @@ const FoodList = ({
               <Image style={styles.imageContainer} source={image} />
               <View style={styles.textContainer}>
                 <Text style={styles.textTitle}>{title}</Text>
+                <Number number={price} style={styles.textSubtitle}/>
                 <Text style={styles.textSubtitle}>
                   {items} items . IDR {price}
                 </Text>
@@ -87,6 +89,7 @@ const FoodList = ({
               <Image style={styles.imageContainer} source={image} />
               <View style={styles.textContainer}>
                 <Text style={styles.textTitle}>{title}</Text>
+                <Number number={price} style={styles.textSubtitle}/>
                 {proses ? (
                   <Text style={styles.textSubtitle}>
                     {orderItem} items . IDR {totalOrders}

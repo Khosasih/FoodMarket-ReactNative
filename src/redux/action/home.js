@@ -15,7 +15,7 @@ export const getFoodData = () => dispatch => {
 export const getFoodDataByTypes = types => dispatch => {
   Axios.get(`${API_HOST.url}/food?types=${types}`)
     .then(res => {
-      console.log('resFood', res.data.data.data);
+      console.log('resFoodData', res.data.data.data);
       if (types === 'new_food') {
         dispatch({type: 'SET_NEW_TASTE', value: res.data.data.data});
       }
@@ -27,6 +27,6 @@ export const getFoodDataByTypes = types => dispatch => {
       }
     })
     .catch(err => {
-      console.log('errFood:', err);
+      console.log('errFoodData:', err);
     });
 };

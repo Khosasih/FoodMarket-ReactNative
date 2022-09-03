@@ -6,11 +6,11 @@ import Number from '../Number';
 const Rating = ({number}) => {
   const renderStar = () => {
     let rating = [];
-    for (let i=1 ; i<=5 ; i++) {
+    for (let i = 1; i <= 5; i++) {
       if (i <= number) {
         rating.push(<IconStarOn key={i} />);
       } else {
-        rating.push(<IconStarOff key={i}/>);
+        rating.push(<IconStarOff key={i} />);
       }
     }
     return rating;
@@ -25,7 +25,7 @@ const Rating = ({number}) => {
         <IconStarOn />
         <IconStarOff /> */}
       </View>
-      <Number number={number} type='decimal'/>
+      <Number number={number} type="decimal" style={styles.numberRating} />
       {/* <Text>{number}</Text> */}
     </View>
   );
@@ -40,6 +40,11 @@ const styles = StyleSheet.create({
   },
   ratingContainer: {
     flexDirection: 'row',
-    alignItems: 'center',
+  },
+  numberRating: {
+    fontSize: 12,
+    fontFamily: 'Poppins-Regular',
+    color: '#8D92A3',
+    
   },
 });
