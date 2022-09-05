@@ -3,46 +3,59 @@ import React from 'react';
 import {Button, FoodList, Header, ItemValue} from '../../components';
 import {FoodDummy1} from '../../assets';
 
-const OrderSummary = ({marginTop, navigation}) => {
+const OrderSummary = ({marginTop, navigation, route}) => {
+  const {item, transaction, userProfile} = route.params;
   return (
     <ScrollView showsVerticalScrollIndicator={false}>
       <View>
         <Header
           title={'Pembayaran'}
           subTitle={'Ayo selesaikan pembayaran-mu'}
-          iconBack={() => {}}
+          iconBack={() => navigation.goBack()}
         />
         <View style={styles.container}>
           <Text style={styles.title()}>Pesanan</Text>
           <FoodList
-            image={FoodDummy1}
-            title={'Nasi Kuning'}
-            price={'50.000'}
+            image={{uri: item.picturePath}}
+            title={item.name}
+            price={item.price}
             type="order-summary"
-            items={14}
+            items={transaction.totalItems}
           />
           <Text style={styles.title((marginTop = 18))}>
             Details Transaction
           </Text>
-          <ItemValue text={'Nasi Kuning'} value={'IDR 50.0000'} />
-          <ItemValue text={'Driver'} value={'IDR 25.000'} />
-          <ItemValue text={'PPN 11%'} value={'IDR 11.000'} />
+          <ItemValue
+            text={item.name}
+            value={transaction.totalPrice}
+            type="currency"
+          />
+          <ItemValue
+            text={'Driver'}
+            value={transaction.driver}
+            type="currency"
+          />
+          <ItemValue text={'PPN 11%'} value={transaction.tax} type="currency" />
           <ItemValue
             text={'Total Price'}
-            value={'IDR 85.0000'}
+            value={transaction.total}
             color={'#1ABC9C'}
             fontFamily={'Poppins-Medium'}
+            type="currency"
           />
         </View>
         <View style={styles.container}>
           <Text>Deliver To:</Text>
-          <ItemValue text={'Nama'} value={'Adam Maulana Khosasih'} />
-          <ItemValue text={'Phone No.'} value={'083804407372'} />
-          <ItemValue text={'House No.'} value={'3'} />
-          <ItemValue text={'City'} value={'Jakarta Selatan'} />
+          <ItemValue text={'Nama'} value={userProfile.name} />
+          <ItemValue text={'Phone No.'} value={userProfile.phoneNumber} />
+          <ItemValue text={'House No.'} value={userProfile.houseNumber} />
+          <ItemValue text={'City'} value={userProfile.city} />
         </View>
         <View style={styles.klik}>
-          <Button text={'Bayar Sekarang'} onPress={()=> navigation.replace('SuccessOrder')}/>
+          <Button
+            text={'Bayar Sekarang'}
+            onPress={() => navigation.replace('SuccessOrder')}
+          />
         </View>
       </View>
     </ScrollView>

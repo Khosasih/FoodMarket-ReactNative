@@ -55,7 +55,7 @@ const AddressPage = ({navigation}) => {
           <Gap height={16} />
           <TextInput
             label={'Nomor Rumah'}
-            placeholder={'No. 37'}
+            placeholder={'Nomor Rumah'}
             value={form.houseNumber}
             onChangeText={value => setFrom('houseNumber', value)}
           />

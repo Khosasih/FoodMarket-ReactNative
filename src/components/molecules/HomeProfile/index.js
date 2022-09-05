@@ -4,15 +4,15 @@ import {ProfileDummy} from '../../../assets';
 import {getData} from '../../../utils';
 
 const HomeProfile = () => {
-  const [photo, setPhoto] = useState(ProfileDummy);
+  const [photo, setPhoto] = useState();
   //cara jika mau get nama
-  // const [name, setName] = useState('Catering Umi');
+  const [name, setName] = useState('defaultnya');
   useEffect(() => {
     getData('userProfile').then(res => {
       console.log('user Profile: ', res);
       setPhoto({uri: res.profile_photo_url});
       //tambahkan ini untuk get nama
-      // setName(res.name);
+      setName(res.name);
     });
   }, []);
   return (
@@ -22,9 +22,9 @@ const HomeProfile = () => {
         {/* <Text style={styles.catering}>{name}</Text> */}
         <Text style={styles.catering}>Catering UMI</Text>
 
-        <Text style={styles.subCatering}>Yuk Order Sekarang!</Text>
+        <Text style={styles.subCatering}>Yuk Order Sekarang! {name}</Text>
       </View>
-      <Image source={photo} style={styles.profile} />
+      <Image source={photo} style={styles.profile}/>
     </View>
   );
 };

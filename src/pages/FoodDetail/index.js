@@ -5,21 +5,58 @@ import {
   ImageBackground,
   TouchableOpacity,
 } from 'react-native';
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import {FoodDummy5, IconBackWhite} from '../../assets';
 import {Button, Counter, Number, Rating} from '../../components';
+import {getData} from '../../utils';
 
 const FoodDetail = ({navigation, route}) => {
-  const {name, picturePath, description, ingredients, price, rate} = route.params;
+  const {name, picturePath, description, ingredients, price, rate} =
+    route.params;
   const [totalItems, setTotalItem] = useState(1);
-  const onCounterChange = (value) => {
-    console.log('counter: ', value)
+  const [userProfile, setUserProfile] = useState({});
+  useEffect(() => {
+    getData('userProfile').then(res => {
+      // console.log('profile:', res);
+      setUserProfile(res);
+    });
+  }, []);
+
+  const onCounterChange = value => {
+    console.log('counter: ', value);
     setTotalItem(value);
-  }
+  };
+  const onOrder = () => {
+    // console userProfile =
+    const totalPrice = totalItems * price;
+    const driver = 5000;
+    const tax = 10 / 100 * (totalItems * price);
+    const total = totalPrice + driver + tax;
+
+    const data = {
+      item: {
+        name: name,
+        price: price,
+        picturePath: picturePath,
+      },
+      transaction: {
+        totalItems: totalItems,
+        totalPrice: totalPrice,
+        driver: driver,
+        tax: tax,
+        total: total,
+      },
+      userProfile,
+    };
+    console.log('data for Checkout: ', data);
+    navigation.navigate('OrderSummary', data);
+  };
   return (
     <View style={styles.page}>
-      <ImageBackground source={{uri: picturePath }} style={styles.cover}>
-        <TouchableOpacity style={styles.back} onPress={()=>navigation.goBack()}>
+      <ImageBackground source={{uri: picturePath}} style={styles.cover}>
+        <TouchableOpacity
+          style={styles.back}
+          onPress={() => navigation.goBack()}>
           <IconBackWhite />
         </TouchableOpacity>
       </ImageBackground>
@@ -28,26 +65,28 @@ const FoodDetail = ({navigation, route}) => {
           <View style={styles.counterContainer}>
             <View>
               <Text style={styles.title}>{name}</Text>
-              <Rating number={rate}/>
+              <Rating number={rate} />
             </View>
             <View>
-              <Counter onValueChange={onCounterChange}/>
+              <Counter onValueChange={onCounterChange} />
             </View>
           </View>
-          <Text style={styles.content}>
-            {description}
-          </Text>
+          <Text style={styles.content}>{description}</Text>
           <Text style={styles.subTitle}>Ingredients:</Text>
           <Text style={styles.content}>{ingredients}</Text>
         </View>
         <View style={styles.footerContainer}>
           <View style={styles.priceContainer}>
             <Text style={styles.textTotalPrice}>Total Price:</Text>
-            <Number style={styles.textPrice} number={totalItems * price}/>
+            <Number style={styles.textPrice} number={totalItems * price} />
             {/* <Text style={styles.textPrice}>IDR {totalItems * price}</Text> */}
           </View>
           <View style={styles.footer}>
-            <Button text={'Order Now'} onPress={()=> navigation.navigate('OrderSummary')} />
+            <Button
+              text={'Order Now'}
+              // onPress={() => navigation.navigate('OrderSummary')}
+              onPress={onOrder}
+            />
           </View>
         </View>
       </View>
