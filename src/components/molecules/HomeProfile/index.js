@@ -4,27 +4,35 @@ import {ProfileDummy} from '../../../assets';
 import {getData} from '../../../utils';
 
 const HomeProfile = () => {
-  const [photo, setPhoto] = useState();
-  //cara jika mau get nama
-  const [name, setName] = useState('defaultnya');
+  const [photo, setPhoto] = useState('');
   useEffect(() => {
     getData('userProfile').then(res => {
-      console.log('user Profile: ', res);
+      console.log('userProfile: ', res);
       setPhoto({uri: res.profile_photo_url});
-      //tambahkan ini untuk get nama
-      setName(res.name);
     });
-  }, []);
+  },[]);
+  // const [photo, setPhoto] = useState('');
+  // //cara jika mau get nama
+  // const [name, setName] = useState('');
+  // useEffect(() => {
+  //   getData('userProfile').then(res => {
+  //     console.log('userProfile: ', res);
+  //     setPhoto({uri: res.profile_photo_url});
+  //     //tambahkan ini untuk get nama
+  //     setName(res.name);
+  //   }
+  //   );
+  // }, []);
   return (
     <View style={styles.profileContainer}>
       <View>
         {/* dan ini tambahkan */}
         {/* <Text style={styles.catering}>{name}</Text> */}
-        <Text style={styles.catering}>Catering UMI</Text>
+        <Text style={styles.catering}>belajar</Text>
 
-        <Text style={styles.subCatering}>Yuk Order Sekarang! {name}</Text>
+        <Text style={styles.subCatering}>Yuk Bisa Sekarang! {name}</Text>
       </View>
-      <Image source={photo} style={styles.profile}/>
+      <Image source={photo} style={styles.profile} />
     </View>
   );
 };

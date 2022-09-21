@@ -11,7 +11,7 @@ import {Button, Counter, Number, Rating} from '../../components';
 import {getData} from '../../utils';
 
 const FoodDetail = ({navigation, route}) => {
-  const {name, picturePath, description, ingredients, price, rate} =
+  const {id, name, picturePath, description, ingredients, price, rate} =
     route.params;
   const [totalItems, setTotalItem] = useState(1);
   const [userProfile, setUserProfile] = useState({});
@@ -30,11 +30,12 @@ const FoodDetail = ({navigation, route}) => {
     // console userProfile =
     const totalPrice = totalItems * price;
     const driver = 5000;
-    const tax = 10 / 100 * (totalItems * price);
+    const tax = (10 / 100) * (totalItems * price);
     const total = totalPrice + driver + tax;
 
     const data = {
       item: {
+        id: id,
         name: name,
         price: price,
         picturePath: picturePath,

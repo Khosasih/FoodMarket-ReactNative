@@ -2,14 +2,64 @@ import {StyleSheet, Text, View, ScrollView} from 'react-native';
 import React from 'react';
 import {Button, FoodList, Header, ItemValue} from '../../components';
 import {FoodDummy1} from '../../assets';
+import Axios from 'axios';
+import {API_HOST} from '../../config';
+import {useEffect} from 'react';
+import {getData} from '../../utils';
+import {useState} from 'react';
+import {WebView} from 'react-native-webview';
 
 const OrderSummary = ({marginTop, navigation, route}) => {
   const {item, transaction, userProfile} = route.params;
+  const [token, setToken] = useState('');
+  const [isPaymentOpen, setIsPaymentOpen] = useState(false);
+  const [paymentUrl, setPaymentUrl] = useState('https://google.com');
+  useEffect(() => {
+    getData('token').then(res => {
+      console.log('token: ', res);
+      setToken(res.value);
+    });
+  }, []);
+  const onCheckout = () => {
+    // navigation.replace('SuccessOrder');
+    const data = {
+      food_id: item.id,
+      user_id: userProfile.id,
+      quantity: transaction.totalItems,
+      total: transaction.totalPrice,
+      status: 'PENDING',
+    };
+    Axios.post(`${API_HOST.url}/checkout`, data, {
+      headers: {
+        Authorization: token,
+      },
+    })
+      .then(res => {
+        console.log('Checkout Succes: ', res.data);
+        setIsPaymentOpen(true);
+        setPaymentUrl(res.data.data.payment_url);
+      })
+      .catch(err => {
+        console.log('err: ', err);
+      });
+  };
+  if (isPaymentOpen) {
+    return (
+      <>
+        <Header
+          title={'Payment'}
+          subTitle={'testing'}
+          iconBack={() => navigation.goBack()}
+        />
+        <WebView source={{uri: paymentUrl}} />
+      </>
+    );
+  }
   return (
     <ScrollView showsVerticalScrollIndicator={false}>
       <View>
         <Header
-          title={'Pembayaran'}
+          title={'Order Summary'}
           subTitle={'Ayo selesaikan pembayaran-mu'}
           iconBack={() => navigation.goBack()}
         />
@@ -54,7 +104,8 @@ const OrderSummary = ({marginTop, navigation, route}) => {
         <View style={styles.klik}>
           <Button
             text={'Bayar Sekarang'}
-            onPress={() => navigation.replace('SuccessOrder')}
+            // onPress={() => navigation.replace('SuccessOrder')}
+            onPress={onCheckout}
           />
         </View>
       </View>
