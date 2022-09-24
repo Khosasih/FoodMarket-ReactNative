@@ -35,17 +35,17 @@ const FoodDetail = ({navigation, route}) => {
 
     const data = {
       item: {
-        id: id,
-        name: name,
-        price: price,
-        picturePath: picturePath,
+        id,
+        name,
+        price,
+        picturePath,
       },
       transaction: {
-        totalItems: totalItems,
-        totalPrice: totalPrice,
-        driver: driver,
-        tax: tax,
-        total: total,
+        totalItems,
+        totalPrice,
+        driver,
+        tax,
+        total,
       },
       userProfile,
     };

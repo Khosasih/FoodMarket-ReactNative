@@ -1,6 +1,6 @@
 import {StyleSheet, Text, View, ScrollView} from 'react-native';
 import React from 'react';
-import {Button, FoodList, Header, ItemValue} from '../../components';
+import {Button, FoodList, Header, ItemValue, Loading} from '../../components';
 import {FoodDummy1} from '../../assets';
 import Axios from 'axios';
 import {API_HOST} from '../../config';
@@ -13,20 +13,19 @@ const OrderSummary = ({marginTop, navigation, route}) => {
   const {item, transaction, userProfile} = route.params;
   const [token, setToken] = useState('');
   const [isPaymentOpen, setIsPaymentOpen] = useState(false);
-  const [paymentUrl, setPaymentUrl] = useState('https://google.com');
+  const [paymentURL, setPaymentURL] = useState('https://google.com');
   useEffect(() => {
     getData('token').then(res => {
       console.log('token: ', res);
       setToken(res.value);
     });
   }, []);
-  const onCheckout = () => {
-    // navigation.replace('SuccessOrder');
+  const onPay = () => {
     const data = {
       food_id: item.id,
       user_id: userProfile.id,
       quantity: transaction.totalItems,
-      total: transaction.totalPrice,
+      total: transaction.total,
       status: 'PENDING',
     };
     Axios.post(`${API_HOST.url}/checkout`, data, {
@@ -35,23 +34,36 @@ const OrderSummary = ({marginTop, navigation, route}) => {
       },
     })
       .then(res => {
-        console.log('Checkout Succes: ', res.data);
+        console.log('Checkout success: ', res.data);
         setIsPaymentOpen(true);
-        setPaymentUrl(res.data.data.payment_url);
+        setPaymentURL(res.data.data.payment_url);
       })
       .catch(err => {
-        console.log('err: ', err);
+        console.log('Checkout error: ', err);
       });
+  };
+  const onNavChange = state => {
+    console.log('nav : ', state);
+    // const urlSuccess = 'masukin url dari nav'
+    const titleWeb = "Pembayaran Anda Berhasil!"
+    if (state.title === titleWeb) {
+      navigation.replace('SuccessOrder');
+    }
   };
   if (isPaymentOpen) {
     return (
       <>
         <Header
           title={'Payment'}
-          subTitle={'testing'}
-          iconBack={() => navigation.goBack()}
+          subTitle={'Silahkan untuk melakukan pembayaran'}
+          iconBack={() => setIsPaymentOpen(false)}
         />
-        <WebView source={{uri: paymentUrl}} />
+        <WebView
+          source={{uri: paymentURL}}
+          startInLoadingState={true}
+          renderLoading={() => <Loading />}
+          onNavigationStateChange={onNavChange}
+        />
       </>
     );
   }
@@ -105,7 +117,7 @@ const OrderSummary = ({marginTop, navigation, route}) => {
           <Button
             text={'Bayar Sekarang'}
             // onPress={() => navigation.replace('SuccessOrder')}
-            onPress={onCheckout}
+            onPress={onPay}
           />
         </View>
       </View>
